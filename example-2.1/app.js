@@ -26,7 +26,17 @@ const uploadMiddleware = multer({
     uploadOptions
 });
 
-app.post("/profile", uploadMiddleware.single("photo"), async(req, res, next)=> {
+const uploadFileNames = [
+    {
+        name: "photo",
+        maxCount: 1
+    }, 
+    {
+        name: "avatar",
+        maxCount: 1
+    }];
+
+app.post("/profile", uploadMiddleware.fields(uploadFileNames), async(req, res, next)=> {
    const {path: tempName, originalname} = req.file;
     // console.log(tempName)
     // console.log(originalname)
